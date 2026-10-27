@@ -1,44 +1,38 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import React from 'react';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.content}>
+        <Text style={styles.title}>Solar Grid</Text>
+        <Text style={styles.subtitle}>
+          Power your journey bro.
+        </Text>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#16A34A',
+  },
+  subtitle: {
+    marginTop: 8,
+    fontSize: 16,
+    color: '#64748B',
   },
 });
 
