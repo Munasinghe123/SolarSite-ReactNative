@@ -13,12 +13,35 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import { LogIn, CircleUserRound } from 'lucide-react-native';
+import { useNavigation } from '@react-navigation/native';
 import { GradientButton } from '../../components/common/GradientButton';
 import bg from '../../assets/images/bg.png';
 import logo from '../../assets/images/logo.png';
 
-export default function LandingScreen() {
+export interface LandingScreenProps {
+  onLogin?: () => void;
+  onRegister?: () => void;
+}
+
+export default function LandingScreen({ onLogin, onRegister }: LandingScreenProps) {
+  const navigation = useNavigation();
   const iconSize = Math.min(Math.max(Math.round(hp('2.6%')), 20), 26);
+
+  const handleLogin = () => {
+    if (onLogin) {
+      onLogin();
+    } else {
+      navigation.navigate('Login');
+    }
+  };
+
+  const handleRegister = () => {
+    if (onRegister) {
+      onRegister();
+    } else {
+      navigation.navigate('Register');
+    }
+  };
 
   return (
     <ImageBackground 
@@ -44,7 +67,7 @@ export default function LandingScreen() {
 
               <Text style={styles.title}>
                 <Text style={styles.titleSolar}>SOLAR </Text>
-                <Text style={styles.titleSite}>SITE</Text>
+                <Text style={styles.titleSite}>GRID</Text>
               </Text>
 
               <Text style={styles.subtitle}>
@@ -57,7 +80,7 @@ export default function LandingScreen() {
               {/* Green Gradient Pill Login Button */}
               <GradientButton
                 title="Login"
-                // onPress={onLogin}
+                onPress={handleLogin}
                 colors={['#004F2C', '#00B565']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
@@ -71,7 +94,7 @@ export default function LandingScreen() {
               {/* Glassmorphic / Gold Border Register Button */}
               <TouchableOpacity
                 activeOpacity={0.75}
-                // onPress={onRegister}
+                onPress={handleRegister}
                 style={styles.button}
                 className="w-full rounded-full flex-row items-center justify-center border-2 border-[#FFC80A] bg-white/15 shadow-md active:bg-white/25"
               >

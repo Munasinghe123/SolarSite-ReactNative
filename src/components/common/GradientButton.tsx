@@ -7,7 +7,6 @@ import {
   StyleSheet,
   StyleProp,
   TextStyle,
-  ViewStyle,
 } from 'react-native';
 import Svg, { Defs, LinearGradient as SvgLinearGradient, Stop, Rect } from 'react-native-svg';
 
@@ -21,6 +20,8 @@ export interface GradientButtonProps extends PressableProps {
   textClassName?: string;
   textStyle?: StyleProp<TextStyle>;
   icon?: React.ReactNode;
+  contentAlignment?: 'center' | 'left' | 'right';
+  fitWidth?: boolean;
 }
 
 export function GradientButton({
@@ -33,17 +34,29 @@ export function GradientButton({
   textClassName = '',
   textStyle,
   icon,
+  contentAlignment = 'center',
+  fitWidth = false,
   onPress,
   style,
   ...props
 }: GradientButtonProps) {
   const gradientId = React.useId();
 
+  const isFit = fitWidth || className.includes('self-start') || className.includes('w-auto');
+  const widthClass = isFit ? 'self-start' : 'w-full';
+
+  const alignmentClass =
+    contentAlignment === 'left'
+      ? isFit ? 'justify-start pl-1.5 pr-5' : 'justify-start pl-2'
+      : contentAlignment === 'right'
+      ? 'justify-end pr-3'
+      : 'justify-center';
+
   return (
     <Pressable
       onPress={onPress}
       style={style}
-      className={`w-full h-14 rounded-full overflow-hidden flex-row items-center justify-center active:opacity-85 ${className}`}
+      className={`${widthClass} h-14 rounded-full overflow-hidden flex-row items-center ${alignmentClass} active:opacity-85 ${className}`}
       {...props}
     >
       {/* Background Gradient Locked to Button Bounds */}
@@ -71,7 +84,12 @@ export function GradientButton({
       </View>
 
       {/* Button Content */}
-      <View className={`flex-row items-center justify-center ${gradientClassName}`} pointerEvents="none">
+      <View 
+        className={`flex-row items-center ${
+          contentAlignment === 'left' ? 'justify-start' : contentAlignment === 'right' ? 'justify-end' : 'justify-center'
+        } ${gradientClassName}`} 
+        pointerEvents="none"
+      >
         {icon && <View className="mr-2.5">{icon}</View>}
         <Text
           style={textStyle}
