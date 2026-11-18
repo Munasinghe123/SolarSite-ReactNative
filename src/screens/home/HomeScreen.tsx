@@ -13,7 +13,7 @@ import {
 } from 'react-native-responsive-screen';
 import {
   Bell, Zap, MapPin, Calendar, ChevronRight, Check, Hourglass, User,
-  Gauge, CreditCard, Battery, Navigation,
+  Gauge, CreditCard, Battery, Navigation, Plus, Activity,
 } from 'lucide-react-native';
 import Svg, { Circle } from 'react-native-svg';
 import { GradientButton } from '../../components/common/GradientButton';
@@ -148,7 +148,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
       </View>
 
       <View 
-        className="flex-1 bg-[#F4F8F3] rounded-t-[36px] shadow-2xl relative -mt-4"
+        className="flex-1 bg-[#E8EFE7] rounded-t-[36px] shadow-2xl relative -mt-4"
         style={{ 
           paddingHorizontal: wp('5.5%'), 
           paddingTop: hp('3%'), 
@@ -161,180 +161,273 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
           className="absolute -left-10 bottom-6 pointer-events-none"
           style={{ 
             width: wp('58%'), 
-            height: wp('78%'), 
-            opacity: 0.95 
+            height: wp('78%'),  
           }}
         />
 
+        <View className="flex-row items-center justify-between w-full max-w-[480px] self-center mb-3.5 px-0.5">
+          <View className="flex-row items-center">
+            <Text 
+              style={{ fontSize: hp('2.1%') }} 
+              className="font-extrabold text-[#064E3B] tracking-tight"
+            >
+              Current Status
+            </Text>
+          </View>
 
-        {/* 4-Card Staggered Bento Grid */}
-        <View className="flex-row gap-3.5 w-full max-w-[480px] self-center mt-1">
-          {/* Column 1 (Left): Tall (2 units) + Short (1 unit) */}
+          <TouchableOpacity 
+            activeOpacity={0.7}
+            className="flex-row items-center bg-white px-3 py-1.5 rounded-full shadow-sm"
+          >
+            <Text 
+              style={{ fontSize: hp('1.35%') }} 
+              className="font-bold text-[#047857] mr-0.5"
+            >
+              View Details
+            </Text>
+            <ChevronRight color="#047857" size={14} strokeWidth={2.5} />
+          </TouchableOpacity>
+        </View>
+
+        <View className="flex-row gap-3.5 w-full max-w-[480px] self-center">
           <View className="flex-1 flex-col gap-3.5">
-            {/* Card 1: Top-Left (Spans 2 Row Units) - Battery Arc Gauge */}
             <View 
-              className="bg-[#072415] rounded-[28px] p-4 border border-emerald-500/20 shadow-lg shadow-emerald-950/20 justify-between items-center relative overflow-hidden"
+              className="rounded-[28px] p-4 border border-emerald-500/30 shadow-xl shadow-emerald-950/25 justify-between items-center relative overflow-hidden"
               style={{ height: bentoTallHeight }}
             >
-              {/* Arc Gauge */}
-              <View className="w-full items-center justify-center relative mt-1 shrink-0">
-                <Svg width="130" height="110" viewBox="0 0 130 110">
-                  {/* Background Track Arc */}
+              <LinearGradient
+                colors={['#0d7459ff', '#022C22']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0.5, y: 1 }}
+                style={StyleSheet.absoluteFill}
+              />
+
+              <View className="flex-row items-center w-full z-10">
+                <View className="w-9 h-9 rounded-2xl bg-[#34D399]/15 border border-[#34D399]/30 items-center justify-center">
+                  <Battery color="#34D399" size={18} />
+                </View>
+                <Text 
+                  style={{ fontSize: hp('1.75%') }} 
+                  className="font-bold text-white tracking-tight ml-2.5"
+                >
+                  Battery Health
+                </Text>
+              </View>
+
+              <View className="w-full items-center justify-center relative my-auto shrink-0 z-10">
+                <Svg width="135" height="110" viewBox="0 0 135 110">
                   <Circle
-                    cx={65}
+                    cx={67.5}
                     cy={55}
                     r={40}
                     fill="none"
-                    stroke="#0E3320"
-                    strokeWidth={9}
+                    stroke="#0B2B19"
+                    strokeWidth={10}
                     strokeDasharray={`${Math.round(2 * Math.PI * 40 * 0.75)} ${Math.round(2 * Math.PI * 40)}`}
                     strokeDashoffset={0}
                     strokeLinecap="round"
                     rotation={135}
-                    origin="65, 55"
+                    origin="67.5, 55"
                   />
-                  {/* Active Progress Arc */}
                   <Circle
-                    cx={65}
+                    cx={67.5}
                     cy={55}
                     r={40}
                     fill="none"
-                    stroke="#22C55E"
-                    strokeWidth={9}
+                    stroke="#34D399"
+                    strokeWidth={10}
                     strokeDasharray={`${Math.round(2 * Math.PI * 40 * 0.75)} ${Math.round(2 * Math.PI * 40)}`}
                     strokeDashoffset={Math.round(2 * Math.PI * 40 * 0.75 * (1 - 0.8))}
                     strokeLinecap="round"
                     rotation={135}
-                    origin="65, 55"
+                    origin="67.5, 55"
                   />
                 </Svg>
                 
-                {/* 80% Text in Center */}
                 <View className="absolute inset-0 items-center justify-center pt-2">
                   <Text 
-                    style={{ fontSize: hp('3%') }} 
-                    className="font-extrabold text-white tracking-tight"
+                    style={{ fontSize: hp('2.8%') }} 
+                    className="font-extrabold text-white tracking-tight mt-0.5"
                   >
                     80%
                   </Text>
                 </View>
               </View>
 
-              {/* Below the Arch */}
-              <View className="items-center justify-center pb-1 gap-1">
+              <View className="flex-row items-center bg-[#153E26]/85 border border-emerald-500/30 px-4 py-1 rounded-full z-10 mb-0.5">
                 <Text 
-                  style={{ fontSize: hp('1.5%') }} 
-                  className="font-semibold text-slate-300 text-center"
+                  style={{ fontSize: hp('1.35%') }} 
+                  className="font-bold text-[#FFC80A] tracking-wide"
                 >
-                  Battery Health
+                  Good
                 </Text>
-                <Battery color="#6EE7B7" size={18} />
               </View>
             </View>
 
-            {/* Card 3: Bottom-Left (Spans 1 Row Unit) - Est. Range Remaining */}
             <View 
-              className="bg-white rounded-[28px] p-3 border border-amber-100/90 shadow-sm flex-row items-center"
+              className="bg-[#FFFDF8] rounded-[28px] p-3.5 border border-[#F4EBD7] shadow-sm flex-col justify-between relative overflow-hidden"
               style={{ height: bentoShortHeight }}
             >
-              <View className="w-10 h-10 rounded-2xl bg-amber-50 items-center justify-center border border-amber-200/60 shrink-0">
-                <Navigation color="#D97706" size={18} />
-              </View>
+              <LinearGradient
+                colors={[
+                  'rgba(255, 200, 10, 0.22)',
+                  'rgba(255, 200, 10, 0.06)',
+                  'transparent',
+                ]}
+                locations={[0, 0.45, 1]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={StyleSheet.absoluteFill}
+              />
 
-              <View className="flex-1 ml-2 justify-center">
-                <View className="flex-row items-center gap-1">
-                  <Text 
-                    style={{ fontSize: Math.min(Math.max(Math.round(hp('1.15%')), 10), 12) }} 
-                    className="text-amber-800 font-bold uppercase tracking-wider"
-                    numberOfLines={1}
-                  >
-                    Range
-                  </Text>
+              <View className="flex-row items-center z-10">
+                <View className="w-7 h-7 rounded-xl bg-[#FFF5DC] border border-[#FDE7B0] items-center justify-center shrink-0">
+                  <Navigation color="#B45309" size={14} />
                 </View>
                 <Text 
-                  style={{ fontSize: hp('2.1%') }} 
-                  className="font-extrabold text-slate-900 tracking-tight mt-0.5"
+                  style={{ fontSize: hp('1.3%') }} 
+                  className="text-[#78350F] font-bold uppercase tracking-wider ml-2"
                   numberOfLines={1}
                 >
-                  50 km{' '}
-                  <Text 
-                    style={{ fontSize: hp('1.3%') }} 
-                    className="font-medium text-amber-800"
-                  >
-                    left
-                  </Text>
+                  REMAINING
                 </Text>
+              </View>
+
+              <Text 
+                style={{ fontSize: hp('2.3%') }} 
+                className="font-extrabold text-[#0F172A] tracking-tight z-10"
+                numberOfLines={1}
+              >
+                50 km{' '}
+                <Text 
+                  style={{ fontSize: hp('1.4%') }} 
+                  className="font-medium text-slate-400"
+                >
+                  range
+                </Text>
+              </Text>
+
+              <View className="w-full h-2 rounded-full bg-[#EFE6D2] overflow-hidden z-10">
+                <View className="h-full rounded-full bg-[#FFC80A] w-[62%]" />
               </View>
             </View>
           </View>
 
-          {/* Column 2 (Right): Short (1 unit) + Tall (2 units) */}
           <View className="flex-1 flex-col gap-3.5">
-            {/* Card 2: Top-Right (Spans 1 Row Unit) - Distance Travelled */}
             <View 
-              className="bg-white rounded-[28px] p-3 border border-slate-100 shadow-sm flex-row items-center"
+              className="bg-[#DCFCE7] rounded-[28px] p-3.5 border border-emerald-200/70 shadow-md shadow-emerald-950/10 flex-col justify-between relative overflow-hidden"
               style={{ height: bentoShortHeight }}
             >
-              <View className="w-10 h-10 rounded-2xl bg-emerald-50 items-center justify-center border border-emerald-100 shrink-0">
-                <Gauge color="#047857" size={18} />
+              <LinearGradient
+                colors={['#E6F9EE', '#CEF5DC']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={StyleSheet.absoluteFill}
+              />
+
+              <View className="flex-row items-center z-10">
+                <View className="w-7 h-7 rounded-xl bg-white border border-emerald-200 items-center justify-center shrink-0 shadow-sm">
+                  <Gauge color="#047857" size={14} />
+                </View>
+                <Text 
+                  style={{ fontSize: hp('1.3%') }} 
+                  className="text-[#065F46] font-bold uppercase tracking-wider ml-2"
+                  numberOfLines={1}
+                >
+                  TRAVELLED
+                </Text>
               </View>
 
-              <View className="flex-1 ml-2 justify-center">
+              <Text 
+                style={{ fontSize: hp('2.3%') }} 
+                className="font-extrabold text-[#064E3B] tracking-tight z-10"
+                numberOfLines={1}
+              >
+                100 km{' '}
                 <Text 
-                  style={{ fontSize: Math.min(Math.max(Math.round(hp('1.15%')), 10), 12) }} 
-                  className="text-[#047857] font-bold uppercase tracking-wider"
-                  numberOfLines={1}
+                  style={{ fontSize: hp('1.4%') }} 
+                  className="font-semibold text-emerald-700/60"
                 >
-                  Travelled
+                  total
                 </Text>
-                <Text 
-                  style={{ fontSize: hp('2.1%') }} 
-                  className="font-extrabold text-slate-900 tracking-tight mt-0.5"
-                  numberOfLines={1}
-                >
-                  100 km
-                </Text>
+              </Text>
+
+              <View className="w-full h-2 rounded-full bg-white/80 overflow-hidden z-10">
+                <View className="h-full rounded-full bg-[#047857] w-[72%]" />
               </View>
             </View>
 
-            {/* Card 4: Bottom-Right (Spans 2 Row Units) - Balance / Payment */}
             <View 
-              className="bg-[#072415] rounded-[28px] p-4 border border-emerald-500/20 shadow-lg shadow-emerald-950/20 justify-between items-center relative overflow-hidden"
+              className="rounded-[28px] p-4 border border-emerald-400/30 shadow-xl shadow-emerald-950/25 flex-col justify-between relative overflow-hidden"
               style={{ height: bentoTallHeight }}
             >
-              {/* Centered Credit Card Icon */}
-              <View 
-                className="items-center justify-center"
-                style={{ marginTop: Math.round(hp('1.5%')) }}
-              >
-                <CreditCard color="#22C55E" size={Math.min(Math.max(Math.round(hp('7%')), 52), 64)} />
-              </View>
+              <LinearGradient
+                colors={['#0F7657', '#021810']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={StyleSheet.absoluteFill}
+              />
 
-              {/* Centered Balance Details */}
-              <View className="w-full items-center pb-1">
-                <Text 
-                  style={{ fontSize: hp('2.4%') }} 
-                  className="font-extrabold text-white text-center tracking-tight"
-                  numberOfLines={1}
-                >
-                  20 USD{' '}
-                  <Text 
-                    style={{ fontSize: hp('1.4%') }} 
-                    className="font-medium text-emerald-300/90"
-                  >
-                    remaining
-                  </Text>
-                </Text>
+              <LinearGradient
+                colors={[
+                  'rgba(52, 211, 153, 0.30)',
+                  'rgba(52, 211, 153, 0.08)',
+                  'transparent',
+                ]}
+                locations={[0, 0.45, 1]}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+                style={StyleSheet.absoluteFill}
+              />
 
-                <View className="mt-2 bg-emerald-500/20 px-3 py-1 rounded-full border border-emerald-500/30">
+              <View className="flex-row items-center justify-between w-full z-10">
+                <View className="w-9 h-9 rounded-2xl bg-[#34D399]/15 border border-[#34D399]/30 items-center justify-center">
+                  <CreditCard color="#34D399" size={18} />
+                </View>
+                <View className="bg-black/35 px-2.5 py-1 rounded-full border border-emerald-300/30">
                   <Text 
-                    style={{ fontSize: hp('1.25%') }} 
-                    className="font-semibold text-[#86EFAC] text-center tracking-wide"
+                    style={{ fontSize: hp('1.15%') }} 
+                    className="font-bold text-[#FFC80A] tracking-wide"
                   >
                     Pay as you go
                   </Text>
                 </View>
               </View>
+
+              <View className="w-full my-auto py-2 z-10">
+                <Text 
+                  style={{ fontSize: hp('1.2%') }} 
+                  className="text-emerald-200/80 font-bold uppercase tracking-wider mb-1"
+                >
+                  Balance
+                </Text>
+                <Text 
+                  style={{ fontSize: hp('2.8%') }} 
+                  className="font-extrabold text-white tracking-tight"
+                  numberOfLines={1}
+                >
+                  20 USD{' '}
+                  <Text 
+                    style={{ fontSize: hp('1.4%') }} 
+                    className="font-medium text-emerald-200/75"
+                  >
+                    left
+                  </Text>
+                </Text>
+              </View>
+
+              <TouchableOpacity 
+                activeOpacity={0.85}
+                className="w-full py-2.5 px-3 rounded-2xl bg-white flex-row items-center justify-center shadow-md z-10"
+              >
+                <Plus color="#064E3B" size={15} strokeWidth={2.5} />
+                <Text 
+                  style={{ fontSize: hp('1.4%') }} 
+                  className="font-extrabold text-[#064E3B] tracking-wide ml-1.5"
+                >
+                  Top Up
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
