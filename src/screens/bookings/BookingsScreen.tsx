@@ -4,12 +4,11 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import { CalendarCheck, MapPin, Zap, ChevronRight } from 'lucide-react-native';
+import { MapPin, Zap, ChevronRight } from 'lucide-react-native';
 
 export default function BookingsScreen() {
   return (
     <View className="flex-1 bg-[#0A1A12]">
-      {/* Header */}
       <View 
         className="w-full bg-[#0C2B1C] border-b border-emerald-900/40"
         style={{ 
@@ -32,17 +31,18 @@ export default function BookingsScreen() {
         </Text>
       </View>
 
-      {/* Bookings List */}
       <ScrollView
         className="flex-1"
+        bounces={false}
+        alwaysBounceVertical={false}
+        overScrollMode="never"
         contentContainerStyle={{ 
           paddingHorizontal: wp('5%'), 
           paddingTop: hp('2.5%'),
-          paddingBottom: hp('14%') // Clearance for static bottom nav bar
+          paddingBottom: hp('14%')
         }}
         showsVerticalScrollIndicator={false}
       >
-        {/* Sample Booking Item 1 */}
         <View className="bg-white rounded-2xl p-4 mb-4 shadow-sm border border-slate-200">
           <View className="flex-row items-center justify-between mb-2">
             <Text style={{ fontSize: hp('2%') }} className="font-bold text-slate-900">
@@ -80,7 +80,6 @@ export default function BookingsScreen() {
           </View>
         </View>
 
-        {/* Sample Booking Item 2 */}
         <View className="bg-white rounded-2xl p-4 mb-4 shadow-sm border border-slate-200">
           <View className="flex-row items-center justify-between mb-2">
             <Text style={{ fontSize: hp('2%') }} className="font-bold text-slate-900">

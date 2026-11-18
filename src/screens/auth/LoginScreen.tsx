@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Image,
-  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -20,17 +19,7 @@ import { GradientButton } from '../../components/common/GradientButton';
 import bg from '../../assets/images/bg.png';
 import logo from '../../assets/images/logo.png';
 
-export interface LoginScreenProps {
-  onLogin?: (credentials: { nic: string; password: string }) => void;
-  onRegister?: () => void;
-  onBack?: () => void;
-}
-
-export default function LoginScreen({
-  onLogin,
-  onRegister,
-  onBack,
-}: LoginScreenProps) {
+export default function LoginScreen() {
   const navigation = useNavigation();
   const [nic, setNic] = useState('');
   const [password, setPassword] = useState('');
@@ -39,28 +28,20 @@ export default function LoginScreen({
   const iconSize = Math.min(Math.max(Math.round(hp('2.4%')), 18), 24);
 
   const handleLogin = () => {
-    if (onLogin) {
-      onLogin({ nic, password });
-    }
-    // Navigate user to Dashboard on login
     navigation.navigate('Dashboard');
   };
 
   const handleRegister = () => {
-    if (onRegister) {
-      onRegister();
-    } else {
-      navigation.navigate('Register');
-    }
+    navigation.navigate('Register');
   };
 
   return (
-    <ImageBackground 
-      source={bg} 
-      resizeMode="cover" 
-      className="flex-1"
-    >
-      {/* Dark Overlay */}
+    <View className="flex-1 relative">
+      <Image 
+        source={bg} 
+        resizeMode="cover" 
+        className="absolute inset-0 w-full h-full"
+      />
       <View className="flex-1 bg-black/35">
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -77,7 +58,6 @@ export default function LoginScreen({
               className="w-full max-w-md self-center"
               style={{ paddingHorizontal: wp('5.5%'), paddingVertical: hp('2%') }}
             >
-              {/* Top Hero Branding */}
               <View 
                 className="items-center"
                 style={{ marginBottom: hp('2%') }}
@@ -98,19 +78,11 @@ export default function LoginScreen({
                   style={{ fontSize: hp('4.2%') }}
                   className="font-extrabold text-center tracking-tight"
                 >
-                  <Text className="text-[#226D3B]">SOLAR </Text>
-                  <Text className="text-[#55A952]">GRID</Text>
-                </Text>
-
-                <Text 
-                  style={{ fontSize: hp('1.75%'), marginTop: hp('0.4%') }}
-                  className="text-slate-200 font-medium text-center px-4"
-                >
-                  Smarter Energy Starts With the Sun
+                  <Text className="text-emerald-500">BATTERY </Text>
+                  <Text className="text-[#FFC80A]">SWAPPER</Text>
                 </Text>
               </View>
 
-              {/* Glassmorphic Form Card */}
               <View 
                 className="bg-[#101A15]/75 border border-emerald-400/25 shadow-2xl"
                 style={{ 
@@ -120,23 +92,13 @@ export default function LoginScreen({
                 }}
               >
                 <Text 
-                  style={{ fontSize: hp('3.2%') }}
+                  style={{ fontSize: hp('3.2%') ,  marginBottom: hp('2.5%') }}
                   className="font-bold text-white text-center"
                 >
                   Welcome Back
                 </Text>
-                <Text 
-                  style={{ 
-                    fontSize: hp('1.7%'), 
-                    marginTop: hp('0.5%'), 
-                    marginBottom: hp('2.5%') 
-                  }}
-                  className="text-slate-300 text-center"
-                >
-                  Sign In to access your information
-                </Text>
+               
 
-                {/* NIC Number Field */}
                 <View style={{ marginBottom: hp('1.8%') }}>
                   <Text 
                     style={{ fontSize: hp('1.75%'), marginBottom: hp('0.8%') }}
@@ -166,7 +128,6 @@ export default function LoginScreen({
                   </View>
                 </View>
 
-                {/* Password Field */}
                 <View style={{ marginBottom: hp('1.8%') }}>
                   <Text 
                     style={{ fontSize: hp('1.75%'), marginBottom: hp('0.8%') }}
@@ -210,7 +171,6 @@ export default function LoginScreen({
                   </View>
                 </View>
 
-                {/* Green Gradient Login Button */}
                 <GradientButton
                   title="Login"
                   onPress={handleLogin}
@@ -229,7 +189,6 @@ export default function LoginScreen({
                   icon={<LogIn color="#FFC80A" size={iconSize} />}
                 />
 
-                {/* OR Divider */}
                 <View 
                   className="flex-row items-center"
                   style={{ 
@@ -247,7 +206,6 @@ export default function LoginScreen({
                   <View className="flex-1 h-[1px] bg-white/35" />
                 </View>
 
-                {/* Register Link */}
                 <TouchableOpacity
                   onPress={handleRegister}
                   activeOpacity={0.75}
@@ -266,6 +224,6 @@ export default function LoginScreen({
           </ScrollView>
         </KeyboardAvoidingView>
       </View>
-    </ImageBackground>
+    </View>
   );
 }

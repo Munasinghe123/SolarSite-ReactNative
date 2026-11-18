@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Image,
-  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -20,22 +19,7 @@ import { GradientButton } from '../../components/common/GradientButton';
 import bg from '../../assets/images/bg.png';
 import logo from '../../assets/images/logo.png';
 
-export interface RegisterScreenProps {
-  onRegister?: (data: {
-    fullName: string;
-    nic: string;
-    contactNumber: string;
-    password: string;
-  }) => void;
-  onLogin?: () => void;
-  onBack?: () => void;
-}
-
-export default function RegisterScreen({
-  onRegister,
-  onLogin,
-  onBack,
-}: RegisterScreenProps) {
+export default function RegisterScreen() {
   const navigation = useNavigation();
   const [fullName, setFullName] = useState('');
   const [nic, setNic] = useState('');
@@ -48,26 +32,20 @@ export default function RegisterScreen({
   const iconSize = Math.min(Math.max(Math.round(hp('2.4%')), 18), 24);
 
   const handleRegister = () => {
-    if (onRegister) {
-      onRegister({ fullName, nic, contactNumber, password });
-    }
+    navigation.navigate('Login');
   };
 
   const handleLogin = () => {
-    if (onLogin) {
-      onLogin();
-    } else {
-      navigation.navigate('Login');
-    }
+    navigation.navigate('Login');
   };
 
   return (
-    <ImageBackground 
-      source={bg} 
-      resizeMode="cover" 
-      className="flex-1"
-    >
-      {/* Dark Overlay */}
+    <View className="flex-1 relative">
+      <Image 
+        source={bg} 
+        resizeMode="cover" 
+        className="absolute inset-0 w-full h-full"
+      />
       <View className="flex-1 bg-black/35">
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -84,7 +62,6 @@ export default function RegisterScreen({
               className="w-full max-w-md self-center"
               style={{ paddingHorizontal: wp('5.5%'), paddingVertical: hp('3%') }}
             >
-              {/* Top Hero Branding */}
               <View 
                 className="items-center"
                 style={{ marginBottom: hp('2%') }}
@@ -105,12 +82,11 @@ export default function RegisterScreen({
                   style={{ fontSize: hp('4%') }}
                   className="font-extrabold text-center tracking-tight"
                 >
-                  <Text className="text-[#226D3B]">SOLAR </Text>
-                  <Text className="text-[#55A952]">GRID</Text>
+                   <Text className="text-emerald-500">BATTERY </Text>
+                  <Text className="text-[#FFC80A]">SWAPPER</Text>
                 </Text>
               </View>
 
-              {/* Glassmorphic Form Card */}
               <View 
                 className="bg-[#101A15]/75 border border-emerald-400/25 shadow-2xl"
                 style={{ 
@@ -120,23 +96,12 @@ export default function RegisterScreen({
                 }}
               >
                 <Text 
-                  style={{ fontSize: hp('3.2%') }}
+                  style={{ fontSize: hp('3.2%') ,  marginBottom: hp('2.5%') }}
                   className="font-bold text-white text-center"
                 >
                   Create Account
                 </Text>
-                <Text 
-                  style={{ 
-                    fontSize: hp('1.7%'), 
-                    marginTop: hp('0.5%'), 
-                    marginBottom: hp('2.2%') 
-                  }}
-                  className="text-slate-300 text-center"
-                >
-                  Sign Up to access your energy information
-                </Text>
-
-                {/* Full Name Field */}
+               
                 <View style={{ marginBottom: hp('1.6%') }}>
                   <Text 
                     style={{ fontSize: hp('1.75%'), marginBottom: hp('0.7%') }}
@@ -166,7 +131,6 @@ export default function RegisterScreen({
                   </View>
                 </View>
 
-                {/* NIC Number Field */}
                 <View style={{ marginBottom: hp('1.6%') }}>
                   <Text 
                     style={{ fontSize: hp('1.75%'), marginBottom: hp('0.7%') }}
@@ -196,7 +160,6 @@ export default function RegisterScreen({
                   </View>
                 </View>
 
-                {/* Contact Number Field */}
                 <View style={{ marginBottom: hp('1.6%') }}>
                   <Text 
                     style={{ fontSize: hp('1.75%'), marginBottom: hp('0.7%') }}
@@ -226,7 +189,6 @@ export default function RegisterScreen({
                   </View>
                 </View>
 
-                {/* Password Field */}
                 <View style={{ marginBottom: hp('1.6%') }}>
                   <Text 
                     style={{ fontSize: hp('1.75%'), marginBottom: hp('0.7%') }}
@@ -270,7 +232,6 @@ export default function RegisterScreen({
                   </View>
                 </View>
 
-                {/* Confirm Password Field */}
                 <View style={{ marginBottom: hp('1.6%') }}>
                   <Text 
                     style={{ fontSize: hp('1.75%'), marginBottom: hp('0.7%') }}
@@ -314,7 +275,6 @@ export default function RegisterScreen({
                   </View>
                 </View>
 
-                {/* Green Gradient Register Button */}
                 <GradientButton
                   title="Register"
                   onPress={handleRegister}
@@ -333,7 +293,6 @@ export default function RegisterScreen({
                   icon={<CircleUserRound color="#FFC80A" size={iconSize} />}
                 />
 
-                {/* OR Divider */}
                 <View 
                   className="flex-row items-center"
                   style={{ 
@@ -351,7 +310,6 @@ export default function RegisterScreen({
                   <View className="flex-1 h-[1px] bg-white/35" />
                 </View>
 
-                {/* Login Link */}
                 <TouchableOpacity
                   onPress={handleLogin}
                   activeOpacity={0.75}
@@ -370,6 +328,6 @@ export default function RegisterScreen({
           </ScrollView>
         </KeyboardAvoidingView>
       </View>
-    </ImageBackground>
+    </View>
   );
 }
