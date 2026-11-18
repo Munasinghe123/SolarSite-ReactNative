@@ -33,8 +33,8 @@ export interface HomeScreenProps {
 export default function HomeScreen({ onTabChange }: HomeScreenProps) {
   const leafHeight = Math.round(hp('17%'));
   const leafWidth = Math.round(leafHeight * (966 / 1628));
-  const bentoTallHeight = Math.round(hp('23%'));
-  const bentoShortHeight = Math.round(hp('11%'));
+  const bentoShortHeight = Math.max(Math.round(hp('11.5%')), 88);
+  const bentoTallHeight = bentoShortHeight * 2 + 14;
 
   return (
     <ScrollView
@@ -168,7 +168,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
 
 
         {/* 4-Card Staggered Bento Grid */}
-        <View className="flex-row gap-3.5 w-full mt-1">
+        <View className="flex-row gap-3.5 w-full max-w-[480px] self-center mt-1">
           {/* Column 1 (Left): Tall (2 units) + Short (1 unit) */}
           <View className="flex-1 flex-col gap-3.5">
             {/* Card 1: Top-Left (Spans 2 Row Units) - Battery Arc Gauge */}
@@ -177,7 +177,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
               style={{ height: bentoTallHeight }}
             >
               {/* Arc Gauge */}
-              <View className="w-full items-center justify-center relative mt-1">
+              <View className="w-full items-center justify-center relative mt-1 shrink-0">
                 <Svg width="130" height="110" viewBox="0 0 130 110">
                   {/* Background Track Arc */}
                   <Circle
@@ -234,26 +234,27 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
 
             {/* Card 3: Bottom-Left (Spans 1 Row Unit) - Est. Range Remaining */}
             <View 
-              className="bg-white rounded-[28px] p-3.5 border border-amber-100/90 shadow-sm flex-row items-center"
+              className="bg-white rounded-[28px] p-3 border border-amber-100/90 shadow-sm flex-row items-center"
               style={{ height: bentoShortHeight }}
             >
-              <View className="w-11 h-11 rounded-2xl bg-amber-50 items-center justify-center border border-amber-200/60 shrink-0">
-                <Navigation color="#D97706" size={20} />
+              <View className="w-10 h-10 rounded-2xl bg-amber-50 items-center justify-center border border-amber-200/60 shrink-0">
+                <Navigation color="#D97706" size={18} />
               </View>
 
-              <View className="flex-1 ml-2.5 justify-center">
+              <View className="flex-1 ml-2 justify-center">
                 <View className="flex-row items-center gap-1">
-                 
                   <Text 
-                    style={{ fontSize: hp('1.2%') }} 
+                    style={{ fontSize: Math.min(Math.max(Math.round(hp('1.15%')), 10), 12) }} 
                     className="text-amber-800 font-bold uppercase tracking-wider"
+                    numberOfLines={1}
                   >
-                    Estimated Range
+                    Range
                   </Text>
                 </View>
                 <Text 
                   style={{ fontSize: hp('2.1%') }} 
                   className="font-extrabold text-slate-900 tracking-tight mt-0.5"
+                  numberOfLines={1}
                 >
                   50 km{' '}
                   <Text 
@@ -271,23 +272,25 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
           <View className="flex-1 flex-col gap-3.5">
             {/* Card 2: Top-Right (Spans 1 Row Unit) - Distance Travelled */}
             <View 
-              className="bg-white rounded-[28px] p-3.5 border border-slate-100 shadow-sm flex-row items-center"
+              className="bg-white rounded-[28px] p-3 border border-slate-100 shadow-sm flex-row items-center"
               style={{ height: bentoShortHeight }}
             >
-              <View className="w-11 h-11 rounded-2xl bg-emerald-50 items-center justify-center border border-emerald-100 shrink-0">
-                <Gauge color="#047857" size={20} />
+              <View className="w-10 h-10 rounded-2xl bg-emerald-50 items-center justify-center border border-emerald-100 shrink-0">
+                <Gauge color="#047857" size={18} />
               </View>
 
-              <View className="flex-1 ml-2.5 justify-center">
+              <View className="flex-1 ml-2 justify-center">
                 <Text 
-                  style={{ fontSize: hp('1.2%') }} 
+                  style={{ fontSize: Math.min(Math.max(Math.round(hp('1.15%')), 10), 12) }} 
                   className="text-[#047857] font-bold uppercase tracking-wider"
+                  numberOfLines={1}
                 >
-                  Distance Travelled
+                  Travelled
                 </Text>
                 <Text 
                   style={{ fontSize: hp('2.1%') }} 
                   className="font-extrabold text-slate-900 tracking-tight mt-0.5"
+                  numberOfLines={1}
                 >
                   100 km
                 </Text>
@@ -302,9 +305,9 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
               {/* Centered Credit Card Icon */}
               <View 
                 className="items-center justify-center"
-                style={{ marginTop: 14 }}
+                style={{ marginTop: Math.round(hp('1.5%')) }}
               >
-                <CreditCard color="#22C55E" size={68} />
+                <CreditCard color="#22C55E" size={Math.min(Math.max(Math.round(hp('7%')), 52), 64)} />
               </View>
 
               {/* Centered Balance Details */}
@@ -312,6 +315,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
                 <Text 
                   style={{ fontSize: hp('2.4%') }} 
                   className="font-extrabold text-white text-center tracking-tight"
+                  numberOfLines={1}
                 >
                   20 USD{' '}
                   <Text 
