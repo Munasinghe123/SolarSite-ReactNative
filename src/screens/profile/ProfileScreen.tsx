@@ -12,7 +12,6 @@ export default function ProfileScreen() {
 
   return (
     <View className="flex-1 bg-[#0A1A12]">
-      {/* Header */}
       <View 
         className="w-full bg-[#0C2B1C] border-b border-emerald-900/40 items-center"
         style={{ 
@@ -40,13 +39,15 @@ export default function ProfileScreen() {
         </View>
       </View>
 
-      {/* Profile Options List */}
       <ScrollView
         className="flex-1"
+        bounces={false}
+        alwaysBounceVertical={false}
+        overScrollMode="never"
         contentContainerStyle={{ 
           paddingHorizontal: wp('5%'), 
           paddingTop: hp('3%'),
-          paddingBottom: hp('14%') // Clearance for static bottom nav bar
+          paddingBottom: hp('14%')
         }}
         showsVerticalScrollIndicator={false}
       >

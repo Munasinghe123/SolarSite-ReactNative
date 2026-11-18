@@ -15,7 +15,7 @@ export const AppNavigator: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Login"
+        initialRouteName="Landing"
         screenOptions={{
           headerShown: false,
           animation: 'slide_from_right',
