@@ -13,26 +13,22 @@ import {
 } from 'react-native-responsive-screen';
 import {
   Bell, Zap, MapPin, Calendar, ChevronRight, Check, Hourglass, User,
-  Gauge, CreditCard, Battery, Navigation, Plus, Activity,
+  Gauge, Battery, Navigation, Activity,
 } from 'lucide-react-native';
 import Svg, { Circle } from 'react-native-svg';
 import { GradientButton } from '../../components/common/GradientButton';
 import LinearGradient from 'react-native-linear-gradient';
 import { TabName } from '../../components/common/BottomNavBar';
 import dashboardBg from '../../assets/images/dashboard.png';
-import heroLeaf from '../../assets/images/heroLeaf.png';
+import heroMap from '../../assets/images/heromap.png';
 import cardLeaf from '../../assets/images/cardLeaf.png';
-import pendingImg from '../../assets/images/pending.jpg';
-import completedImg from '../../assets/images/completed.jpg';
-import mahavali from '../../assets/images/mahavali.jpg';
+
 
 export interface HomeScreenProps {
   onTabChange?: (tab: TabName) => void;
 }
 
 export default function HomeScreen({ onTabChange }: HomeScreenProps) {
-  const leafHeight = Math.round(hp('17%'));
-  const leafWidth = Math.round(leafHeight * (966 / 1628));
   const bentoShortHeight = Math.max(Math.round(hp('11.5%')), 88);
   const bentoTallHeight = bentoShortHeight * 2 + 14;
 
@@ -77,7 +73,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
             </TouchableOpacity>
           </View>
 
-          <View style={{ marginTop: hp('1.8%'), marginBottom: hp('1.5%') }}>
+          <View className='ml-1' style={{ marginTop: hp('1.8%'), marginBottom: hp('1.5%') }}>
             <Text 
               style={{ fontSize: hp('3.6%') }}
               className="font-extrabold text-white"
@@ -101,13 +97,13 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
             }}
           >
             <Image
-              source={heroLeaf}
+              source={heroMap}
               resizeMode="contain"
-              className="absolute right-0 bottom-0 pointer-events-none"
+              className="absolute -right-10 bottom-0 pointer-events-none"
               style={{ 
-                width: leafWidth,
-                height: leafHeight,
-                opacity: 0.30,
+                width: wp('60%'),
+                height: hp('16.5%'),
+                opacity: 0.20,
               }}
             />
 
@@ -158,15 +154,25 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
         <Image
           source={cardLeaf}
           resizeMode="contain"
-          className="absolute -left-10 bottom-6 pointer-events-none"
+          className="absolute -left-12 bottom-6 pointer-events-none"
           style={{ 
             width: wp('58%'), 
-            height: wp('78%'),  
+            height: wp('58%'),  
+          }}
+        />
+
+         <Image
+          source={cardLeaf}
+          resizeMode="contain"
+          className="absolute -right-12 top-1 scale-y-[-1]  scale-x-[-1] pointer-events-none"
+          style={{ 
+            width: wp('58%'), 
+            height: wp('58%'),  
           }}
         />
 
         <View className="flex-row items-center justify-between w-full max-w-[480px] self-center mb-3.5 px-0.5">
-          <View className="flex-row items-center">
+          <View className="flex-row items-center ml-1">
             <Text 
               style={{ fontSize: hp('2.1%') }} 
               className="font-extrabold text-[#064E3B] tracking-tight"
@@ -177,7 +183,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
 
           <TouchableOpacity 
             activeOpacity={0.7}
-            className="flex-row items-center bg-white px-3 py-1.5 rounded-full shadow-sm"
+            className="flex-row items-center bg-white px-3 py-1.5 rounded-full shadow-lg"
           >
             <Text 
               style={{ fontSize: hp('1.35%') }} 
@@ -190,7 +196,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
         </View>
 
         <View className="flex-row gap-3.5 w-full max-w-[480px] self-center">
-          <View className="flex-1 flex-col gap-3.5">
+          <View className="flex-1">
             <View 
               className="rounded-[28px] p-4 border border-emerald-500/30 shadow-xl shadow-emerald-950/25 justify-between items-center relative overflow-hidden"
               style={{ height: bentoTallHeight }}
@@ -263,54 +269,6 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
                 </Text>
               </View>
             </View>
-
-            <View 
-              className="bg-[#FFFDF8] rounded-[28px] p-3.5 border border-[#F4EBD7] shadow-sm flex-col justify-between relative overflow-hidden"
-              style={{ height: bentoShortHeight }}
-            >
-              <LinearGradient
-                colors={[
-                  'rgba(255, 200, 10, 0.22)',
-                  'rgba(255, 200, 10, 0.06)',
-                  'transparent',
-                ]}
-                locations={[0, 0.45, 1]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={StyleSheet.absoluteFill}
-              />
-
-              <View className="flex-row items-center z-10">
-                <View className="w-7 h-7 rounded-xl bg-[#FFF5DC] border border-[#FDE7B0] items-center justify-center shrink-0">
-                  <Navigation color="#B45309" size={14} />
-                </View>
-                <Text 
-                  style={{ fontSize: hp('1.3%') }} 
-                  className="text-[#78350F] font-bold uppercase tracking-wider ml-2"
-                  numberOfLines={1}
-                >
-                  REMAINING
-                </Text>
-              </View>
-
-              <Text 
-                style={{ fontSize: hp('2.3%') }} 
-                className="font-extrabold text-[#0F172A] tracking-tight z-10"
-                numberOfLines={1}
-              >
-                50 km{' '}
-                <Text 
-                  style={{ fontSize: hp('1.4%') }} 
-                  className="font-medium text-slate-400"
-                >
-                  range
-                </Text>
-              </Text>
-
-              <View className="w-full h-2 rounded-full bg-[#EFE6D2] overflow-hidden z-10">
-                <View className="h-full rounded-full bg-[#FFC80A] w-[62%]" />
-              </View>
-            </View>
           </View>
 
           <View className="flex-1 flex-col gap-3.5">
@@ -358,20 +316,13 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
             </View>
 
             <View 
-              className="rounded-[28px] p-4 border border-emerald-400/30 shadow-xl shadow-emerald-950/25 flex-col justify-between relative overflow-hidden"
-              style={{ height: bentoTallHeight }}
+              className="bg-[#FFFDF8] rounded-[28px] p-3.5 border border-[#F4EBD7] shadow-sm flex-col justify-between relative overflow-hidden"
+              style={{ height: bentoShortHeight }}
             >
               <LinearGradient
-                colors={['#0F7657', '#021810']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={StyleSheet.absoluteFill}
-              />
-
-              <LinearGradient
                 colors={[
-                  'rgba(52, 211, 153, 0.30)',
-                  'rgba(52, 211, 153, 0.08)',
+                  'rgba(255, 200, 10, 0.22)',
+                  'rgba(255, 200, 10, 0.06)',
                   'transparent',
                 ]}
                 locations={[0, 0.45, 1]}
@@ -380,54 +331,36 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
                 style={StyleSheet.absoluteFill}
               />
 
-              <View className="flex-row items-center justify-between w-full z-10">
-                <View className="w-9 h-9 rounded-2xl bg-[#34D399]/15 border border-[#34D399]/30 items-center justify-center">
-                  <CreditCard color="#34D399" size={18} />
+              <View className="flex-row items-center z-10">
+                <View className="w-7 h-7 rounded-xl bg-[#FFF5DC] border border-[#FDE7B0] items-center justify-center shrink-0">
+                  <Navigation color="#B45309" size={14} />
                 </View>
-                <View className="bg-black/35 px-2.5 py-1 rounded-full border border-emerald-300/30">
-                  <Text 
-                    style={{ fontSize: hp('1.15%') }} 
-                    className="font-bold text-[#FFC80A] tracking-wide"
-                  >
-                    Pay as you go
-                  </Text>
-                </View>
-              </View>
-
-              <View className="w-full my-auto py-2 z-10">
                 <Text 
-                  style={{ fontSize: hp('1.2%') }} 
-                  className="text-emerald-200/80 font-bold uppercase tracking-wider mb-1"
-                >
-                  Balance
-                </Text>
-                <Text 
-                  style={{ fontSize: hp('2.8%') }} 
-                  className="font-extrabold text-white tracking-tight"
+                  style={{ fontSize: hp('1.3%') }} 
+                  className="text-[#78350F] font-bold uppercase tracking-wider ml-2"
                   numberOfLines={1}
                 >
-                  20 USD{' '}
-                  <Text 
-                    style={{ fontSize: hp('1.4%') }} 
-                    className="font-medium text-emerald-200/75"
-                  >
-                    left
-                  </Text>
+                  REMAINING
                 </Text>
               </View>
 
-              <TouchableOpacity 
-                activeOpacity={0.85}
-                className="w-full py-2.5 px-3 rounded-2xl bg-white flex-row items-center justify-center shadow-md z-10"
+              <Text 
+                style={{ fontSize: hp('2.3%') }} 
+                className="font-extrabold text-[#0F172A] tracking-tight z-10"
+                numberOfLines={1}
               >
-                <Plus color="#064E3B" size={15} strokeWidth={2.5} />
+                50 km{' '}
                 <Text 
                   style={{ fontSize: hp('1.4%') }} 
-                  className="font-extrabold text-[#064E3B] tracking-wide ml-1.5"
+                  className="font-medium text-slate-400"
                 >
-                  Top Up
+                  range
                 </Text>
-              </TouchableOpacity>
+              </Text>
+
+              <View className="w-full h-2 rounded-full bg-[#EFE6D2] overflow-hidden z-10">
+                <View className="h-full rounded-full bg-[#FFC80A] w-[62%]" />
+              </View>
             </View>
           </View>
         </View>
