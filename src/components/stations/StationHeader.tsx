@@ -30,55 +30,58 @@ export const StationHeader: React.FC<StationHeaderProps> = ({
     <View
       style={{
         paddingHorizontal: wp('5.5%'),
-        paddingTop: hp('3.2%'),
-        paddingBottom: hp('2.6%'),
+        paddingTop: hp('2.8%'),
+        paddingBottom: hp('1.8%'),
       }}
-      className="w-full   z-20"
+      className="w-full z-20"
     >
-      {/* Row 1: Back Button, Title, Scanner Button */}
-      <View className="flex-row items-center justify-between">
+      {/* Row 1: Unified Floating White Pill Header */}
+      <View className="flex-row items-center justify-between bg-white border border-slate-200/90 rounded-3xl p-1.5 shadow-lg shadow-black/15">
+        {/* Back Button (Styled to match QR Scanner Button) */}
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={onBack}
-          className="w-10 h-10 items-center justify-center -ml-1.5 rounded-full active:bg-white/10"
+          className="w-10 h-10 rounded-2xl bg-[#064E3B] border border-emerald-500/30 items-center justify-center shadow-sm active:bg-emerald-950"
         >
-          <ArrowLeft color="#064E3B" size={24} strokeWidth={2.5} />
+          <ArrowLeft color="#FFC80A" size={20} strokeWidth={2.5} />
         </TouchableOpacity>
 
-        <View className="flex-1 ml-2">
+        {/* Heading Title */}
+        <View className="flex-1 px-3 items-center justify-center">
           <Text
-            style={{ fontSize: hp('2.35%') }}
-            className="font-extrabold text-[#064E3B] tracking-tight leading-tight"
+            style={{ fontSize: hp('2.05%') }}
+            className="font-extrabold text-[#064E3B] tracking-tight text-center leading-tight"
           >
             Select Swap Station
           </Text>
         </View>
 
+        {/* QR Scanner Button */}
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={onScanPress}
-          className="w-11 h-11 rounded-2xl bg-[#064E3B] border border-emerald-500/30 items-center justify-center shadow-md relative active:bg-emerald-950"
+          className="w-10 h-10 rounded-2xl bg-[#064E3B] border border-emerald-500/30 items-center justify-center shadow-sm relative active:bg-emerald-950"
         >
-          <Scan color="#FFC80A" size={22} strokeWidth={2.2} />
+          <Scan color="#FFC80A" size={20} strokeWidth={2.2} />
           <View className="w-1.5 h-1.5 rounded-full bg-[#FFC80A] absolute" />
         </TouchableOpacity>
       </View>
 
-      {/* Row 2: Search Input Bar */}
-      <View className="mt-4 flex-row items-center bg-[#064E3B] border border-emerald-500/30 rounded-2xl px-4 py-2.5 shadow-sm">
+      {/* Row 2: Floating Search Bar Card */}
+      <View className="mt-3 flex-row items-center bg-[#064E3B] border border-emerald-500/30 rounded-2xl px-4 py-2.5 shadow-lg shadow-black/20">
         <Search color="#34D399" size={20} strokeWidth={2.2} />
         <TextInput
           value={searchQuery}
           onChangeText={onSearchChange}
           placeholder="Search a location, station, or city..."
-          placeholderTextColor="#ffffffff"
+          placeholderTextColor="#A7F3D0"
           style={{ fontSize: hp('1.75%') }}
           className="flex-1 ml-3 text-white font-medium p-0"
         />
       </View>
 
-      {/* Row 3: Radius Filter Chips */}
-      <View className="mt-3.5 flex-row items-center justify-between">
+      {/* Row 3: Floating Radius Filter Chips */}
+      <View className="mt-2.5 flex-row items-center justify-between">
         {radiusOptions.map((option) => {
           const isSelected = selectedRadius === option;
           const isAll = option === 'All';
@@ -88,7 +91,7 @@ export const StationHeader: React.FC<StationHeaderProps> = ({
               key={option}
               activeOpacity={0.85}
               onPress={() => onRadiusChange(option)}
-              className="py-2 px-4 rounded-full flex-row items-center justify-center border"
+              className="py-2 px-3.5 rounded-full flex-row items-center justify-center border shadow-md shadow-black/15"
               style={{
                 minWidth: wp('19%'),
                 backgroundColor: isSelected ? '#FFC80A' : '#064E3B',

@@ -221,20 +221,45 @@ export function getLeafletMapHtml(stations: Station[]): string {
       }
     }
 
-    // Single-shot location check (ZERO continuous background watcher)
+    // Robust two-stage location fetch with hardware GPS wake-up
     function fetchLocation(shouldFly) {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          function(pos) {
+      if (!navigator.geolocation) {
+        sendToRN({ type: 'LOG', message: 'navigator.geolocation unavailable' });
+        return;
+      }
+
+      var isResolved = false;
+
+      // 1. Try High-Accuracy GPS first (wakes up Android GPS hardware)
+      navigator.geolocation.getCurrentPosition(
+        function(pos) {
+          if (!isResolved) {
+            isResolved = true;
             var canFly = shouldFly && !hasUserPanned;
             onLocationReceived(pos.coords.latitude, pos.coords.longitude, pos.coords.accuracy, canFly);
-          },
-          function(err) {
-            sendToRN({ type: 'LOG', message: 'GPS error: ' + err.message });
-          },
-          { enableHighAccuracy: false, timeout: 6000, maximumAge: 60000 }
-        );
-      }
+          }
+        },
+        function(err) {
+          sendToRN({ type: 'LOG', message: 'High accuracy GPS waiting/failed: ' + err.message + '. Trying network location...' });
+          // 2. Fallback to network/cell-tower location if GPS satellite is slow or indoors
+          if (!isResolved) {
+            navigator.geolocation.getCurrentPosition(
+              function(fallbackPos) {
+                if (!isResolved) {
+                  isResolved = true;
+                  var canFly = shouldFly && !hasUserPanned;
+                  onLocationReceived(fallbackPos.coords.latitude, fallbackPos.coords.longitude, fallbackPos.coords.accuracy, canFly);
+                }
+              },
+              function(fallbackErr) {
+                sendToRN({ type: 'LOG', message: 'Network location error: ' + fallbackErr.message });
+              },
+              { enableHighAccuracy: false, timeout: 12000, maximumAge: 300000 }
+            );
+          }
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+      );
     }
 
     // Recenter GPS button: user explicitly requested to jump to location
@@ -247,7 +272,9 @@ export function getLeafletMapHtml(stations: Station[]): string {
     }
 
     window.recenterOnUser = recenterOnUser;
-    window.locateUser = function() { fetchLocation(!hasUserPanned); };
+    window.locateUser = function() {
+      fetchLocation(true);
+    };
 
     // Center on specific station from bottom sheet
     window.focusStation = function(stationId) {
@@ -259,9 +286,6 @@ export function getLeafletMapHtml(stations: Station[]): string {
         marker.openPopup();
       }
     };
-
-    // Initial location on screen launch
-    fetchLocation(true);
   </script>
 </body>
 </html>

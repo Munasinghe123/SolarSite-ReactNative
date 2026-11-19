@@ -22,21 +22,37 @@ export default function SwapStations() {
   useEffect(() => {
     let isMounted = true;
 
-    const requestLocation = async () => {
+    const checkAndRequestLocation = async () => {
       if (Platform.OS === 'android') {
         try {
-          const granted = await PermissionsAndroid.request(
-            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-            {
-              title: 'SolarGrid Location Permission',
-              message: 'SolarGrid needs access to your location to show battery stations near you.',
-              buttonPositive: 'Allow',
-            }
+          // Check if already granted first
+          const hasFine = await PermissionsAndroid.check(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
           );
-          if (isMounted) {
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-              setIsLocationPermissionGranted(true);
-            }
+          const hasCoarse = await PermissionsAndroid.check(
+            PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION
+          );
+
+          if (hasFine || hasCoarse) {
+            if (isMounted) setIsLocationPermissionGranted(true);
+            return;
+          }
+
+          // Otherwise prompt user
+          const granted = await PermissionsAndroid.requestMultiple([
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+            PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+          ]);
+
+          const fineGranted =
+            granted['android.permission.ACCESS_FINE_LOCATION'] ===
+            PermissionsAndroid.RESULTS.GRANTED;
+          const coarseGranted =
+            granted['android.permission.ACCESS_COARSE_LOCATION'] ===
+            PermissionsAndroid.RESULTS.GRANTED;
+
+          if (isMounted && (fineGranted || coarseGranted)) {
+            setIsLocationPermissionGranted(true);
           }
         } catch (err) {
           console.warn('Location permission error:', err);
@@ -48,7 +64,7 @@ export default function SwapStations() {
       }
     };
 
-    requestLocation();
+    checkAndRequestLocation();
 
     return () => {
       isMounted = false;
@@ -76,7 +92,7 @@ export default function SwapStations() {
 
   return (
     <View className="relative flex-1 bg-[#07170F] items-center">
-      <StatusBar barStyle="light-content" />
+      <StatusBar barStyle="dark-content" />
 
       {/* Layer 0: Geographic Interactive Street Map */}
       <StationMap

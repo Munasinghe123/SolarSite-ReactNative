@@ -71,16 +71,22 @@ export const StationMap: React.FC<StationMapProps> = ({
     `);
   };
 
+  const triggerLocationSync = () => {
+    webViewRef.current?.injectJavaScript(`
+      if (typeof window.recenterOnUser === 'function') {
+        window.recenterOnUser();
+      } else if (typeof window.locateUser === 'function') {
+        window.locateUser();
+      }
+      true;
+    `);
+  };
+
   // Trigger GPS detection when permission is granted
   useEffect(() => {
     if (permissionGranted) {
       const timer = setTimeout(() => {
-        webViewRef.current?.injectJavaScript(`
-          if (typeof window.locateUser === 'function') {
-            window.locateUser();
-          }
-          true;
-        `);
+        triggerLocationSync();
       }, 350);
       return () => clearTimeout(timer);
     }
@@ -132,6 +138,7 @@ export const StationMap: React.FC<StationMapProps> = ({
         scrollEnabled={true}
         bounces={false}
         overScrollMode="never"
+        onLoadEnd={triggerLocationSync}
         onMessage={handleMessage}
         style={{ flex: 1, backgroundColor: '#E5E7EB' }}
       />
