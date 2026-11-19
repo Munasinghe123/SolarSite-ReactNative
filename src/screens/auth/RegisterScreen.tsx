@@ -46,7 +46,7 @@ export default function RegisterScreen() {
         resizeMode="cover" 
         className="absolute inset-0 w-full h-full"
       />
-      <View className="flex-1 bg-black/35">
+      <View className="flex-1 bg-black/60">
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={{ flex: 1 }}

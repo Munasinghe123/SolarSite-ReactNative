@@ -22,15 +22,22 @@ import { TabName } from '../../components/common/BottomNavBar';
 import dashboardBg from '../../assets/images/dashboard.png';
 import heroMap from '../../assets/images/heromap.png';
 import cardLeaf from '../../assets/images/cardLeaf.png';
-
+import { useNavigation } from '@react-navigation/native';
 
 export interface HomeScreenProps {
   onTabChange?: (tab: TabName) => void;
 }
 
 export default function HomeScreen({ onTabChange }: HomeScreenProps) {
+
+  const navigation = useNavigation();
+
   const bentoShortHeight = Math.max(Math.round(hp('11.5%')), 88);
   const bentoTallHeight = bentoShortHeight * 2 + 14;
+
+  const handleSwapStation = () => {
+    navigation.navigate('SwapStations');
+  };
 
   return (
     <ScrollView
@@ -45,18 +52,19 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
         <Image
           source={dashboardBg}
           resizeMode="cover"
+          blurRadius={3}
           className="absolute inset-0 w-full h-full"
         />
-        <View 
+        <View
           className="w-full bg-black/70"
-          style={{ 
-            paddingHorizontal: wp('5.5%'), 
-            paddingTop: hp('5.5%'), 
-            paddingBottom: hp('3.5%') 
+          style={{
+            paddingHorizontal: wp('5.5%'),
+            paddingTop: hp('5.5%'),
+            paddingBottom: hp('3.5%')
           }}
         >
           <View className="flex-row items-center justify-between">
-            <TouchableOpacity 
+            <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => onTabChange?.('Profile')}
               className="w-14 h-14 rounded-full border-2 border-white/80 bg-slate-600/70 items-center justify-center overflow-hidden shadow-md"
@@ -64,7 +72,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
               <User color="#CBD5E1" size={32} />
             </TouchableOpacity>
 
-            <TouchableOpacity 
+            <TouchableOpacity
               activeOpacity={0.8}
               className="w-10 h-10 rounded-full bg-black/20 items-center justify-center relative"
             >
@@ -74,13 +82,13 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
           </View>
 
           <View className='ml-1' style={{ marginTop: hp('1.8%'), marginBottom: hp('1.5%') }}>
-            <Text 
+            <Text
               style={{ fontSize: hp('3.6%') }}
               className="font-extrabold text-white"
             >
               Hi <Text className="text-[#FFC80A]">Sankalpa</Text>,
             </Text>
-            <Text 
+            <Text
               style={{ fontSize: hp('1.8%') }}
               className="text-slate-200 font-medium mt-0.5"
             >
@@ -88,10 +96,10 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
             </Text>
           </View>
 
-          <View 
+          <View
             className="w-full rounded-3xl bg-[#0C2B1C]/85 border border-emerald-500/30 shadow-xl overflow-hidden relative"
-            style={{ 
-              paddingHorizontal: wp('5%'), 
+            style={{
+              paddingHorizontal: wp('5%'),
               paddingVertical: hp('2.4%'),
               marginTop: hp('1%'),
             }}
@@ -100,14 +108,14 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
               source={heroMap}
               resizeMode="contain"
               className="absolute -right-10 bottom-0 pointer-events-none"
-              style={{ 
+              style={{
                 width: wp('60%'),
                 height: hp('16.5%'),
                 opacity: 0.20,
               }}
             />
 
-            <Text 
+            <Text
               style={{ fontSize: hp('2%'), maxWidth: wp('55%') }}
               className="font-bold text-white leading-snug"
             >
@@ -118,17 +126,17 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
 
             <GradientButton
               title="Select Swap Station"
-              onPress={() => console.log('Select Power Station pressed')}
+              onPress={handleSwapStation}
               fitWidth={true}
               contentAlignment="left"
               colors={['#004F2C', '#00B565']}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
-              style={{ 
-                height: hp('6.2%'), 
-                minHeight: 48, 
-                maxHeight: 56, 
-                marginTop: hp('1.2%') 
+              style={{
+                height: hp('6.2%'),
+                minHeight: 48,
+                maxHeight: 56,
+                marginTop: hp('1.2%')
               }}
               className="self-start rounded-full border border-[#42A97C] shadow-lg"
               textStyle={{ fontSize: hp('1.9%') }}
@@ -143,11 +151,11 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
         </View>
       </View>
 
-      <View 
+      <View
         className="flex-1 bg-[#E8EFE7] rounded-t-[36px] shadow-2xl relative -mt-4"
-        style={{ 
-          paddingHorizontal: wp('5.5%'), 
-          paddingTop: hp('3%'), 
+        style={{
+          paddingHorizontal: wp('5.5%'),
+          paddingTop: hp('3%'),
           paddingBottom: hp('15%'),
         }}
       >
@@ -155,38 +163,38 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
           source={cardLeaf}
           resizeMode="contain"
           className="absolute -left-12 bottom-6 pointer-events-none"
-          style={{ 
-            width: wp('58%'), 
-            height: wp('58%'),  
+          style={{
+            width: wp('58%'),
+            height: wp('58%'),
           }}
         />
 
-         <Image
+        <Image
           source={cardLeaf}
           resizeMode="contain"
           className="absolute -right-12 top-1 scale-y-[-1]  scale-x-[-1] pointer-events-none"
-          style={{ 
-            width: wp('58%'), 
-            height: wp('58%'),  
+          style={{
+            width: wp('58%'),
+            height: wp('58%'),
           }}
         />
 
         <View className="flex-row items-center justify-between w-full max-w-[480px] self-center mb-3.5 px-0.5">
           <View className="flex-row items-center ml-1">
-            <Text 
-              style={{ fontSize: hp('2.1%') }} 
+            <Text
+              style={{ fontSize: hp('2.1%') }}
               className="font-extrabold text-[#064E3B] tracking-tight"
             >
               Current Status
             </Text>
           </View>
 
-          <TouchableOpacity 
+          <TouchableOpacity
             activeOpacity={0.7}
             className="flex-row items-center bg-white px-3 py-1.5 rounded-full shadow-lg"
           >
-            <Text 
-              style={{ fontSize: hp('1.35%') }} 
+            <Text
+              style={{ fontSize: hp('1.35%') }}
               className="font-bold text-[#047857] mr-0.5"
             >
               View Details
@@ -197,7 +205,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
 
         <View className="flex-row gap-3.5 w-full max-w-[480px] self-center">
           <View className="flex-1">
-            <View 
+            <View
               className="rounded-[28px] p-4 border border-emerald-500/30 shadow-xl shadow-emerald-950/25 justify-between items-center relative overflow-hidden"
               style={{ height: bentoTallHeight }}
             >
@@ -212,8 +220,8 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
                 <View className="w-9 h-9 rounded-2xl bg-[#34D399]/15 border border-[#34D399]/30 items-center justify-center">
                   <Battery color="#34D399" size={18} />
                 </View>
-                <Text 
-                  style={{ fontSize: hp('1.75%') }} 
+                <Text
+                  style={{ fontSize: hp('1.75%') }}
                   className="font-bold text-white tracking-tight ml-2.5"
                 >
                   Battery Health
@@ -249,10 +257,10 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
                     origin="67.5, 55"
                   />
                 </Svg>
-                
+
                 <View className="absolute inset-0 items-center justify-center pt-2">
-                  <Text 
-                    style={{ fontSize: hp('2.8%') }} 
+                  <Text
+                    style={{ fontSize: hp('2.8%') }}
                     className="font-extrabold text-white tracking-tight mt-0.5"
                   >
                     80%
@@ -261,8 +269,8 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
               </View>
 
               <View className="flex-row items-center bg-[#153E26]/85 border border-emerald-500/30 px-4 py-1 rounded-full z-10 mb-0.5">
-                <Text 
-                  style={{ fontSize: hp('1.35%') }} 
+                <Text
+                  style={{ fontSize: hp('1.35%') }}
                   className="font-bold text-[#FFC80A] tracking-wide"
                 >
                   Good
@@ -272,7 +280,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
           </View>
 
           <View className="flex-1 flex-col gap-3.5">
-            <View 
+            <View
               className="bg-[#DCFCE7] rounded-[28px] p-3.5 border border-emerald-200/70 shadow-md shadow-emerald-950/10 flex-col justify-between relative overflow-hidden"
               style={{ height: bentoShortHeight }}
             >
@@ -287,8 +295,8 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
                 <View className="w-7 h-7 rounded-xl bg-white border border-emerald-200 items-center justify-center shrink-0 shadow-sm">
                   <Gauge color="#047857" size={14} />
                 </View>
-                <Text 
-                  style={{ fontSize: hp('1.3%') }} 
+                <Text
+                  style={{ fontSize: hp('1.3%') }}
                   className="text-[#065F46] font-bold uppercase tracking-wider ml-2"
                   numberOfLines={1}
                 >
@@ -296,14 +304,14 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
                 </Text>
               </View>
 
-              <Text 
-                style={{ fontSize: hp('2.3%') }} 
+              <Text
+                style={{ fontSize: hp('2.3%') }}
                 className="font-extrabold text-[#064E3B] tracking-tight z-10"
                 numberOfLines={1}
               >
                 100 km{' '}
-                <Text 
-                  style={{ fontSize: hp('1.4%') }} 
+                <Text
+                  style={{ fontSize: hp('1.4%') }}
                   className="font-semibold text-emerald-700/60"
                 >
                   total
@@ -315,7 +323,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
               </View>
             </View>
 
-            <View 
+            <View
               className="bg-[#FFFDF8] rounded-[28px] p-3.5 border border-[#F4EBD7] shadow-sm flex-col justify-between relative overflow-hidden"
               style={{ height: bentoShortHeight }}
             >
@@ -335,8 +343,8 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
                 <View className="w-7 h-7 rounded-xl bg-[#FFF5DC] border border-[#FDE7B0] items-center justify-center shrink-0">
                   <Navigation color="#B45309" size={14} />
                 </View>
-                <Text 
-                  style={{ fontSize: hp('1.3%') }} 
+                <Text
+                  style={{ fontSize: hp('1.3%') }}
                   className="text-[#78350F] font-bold uppercase tracking-wider ml-2"
                   numberOfLines={1}
                 >
@@ -344,14 +352,14 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
                 </Text>
               </View>
 
-              <Text 
-                style={{ fontSize: hp('2.3%') }} 
+              <Text
+                style={{ fontSize: hp('2.3%') }}
                 className="font-extrabold text-[#0F172A] tracking-tight z-10"
                 numberOfLines={1}
               >
                 50 km{' '}
-                <Text 
-                  style={{ fontSize: hp('1.4%') }} 
+                <Text
+                  style={{ fontSize: hp('1.4%') }}
                   className="font-medium text-slate-400"
                 >
                   range
@@ -365,7 +373,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
           </View>
         </View>
 
-       
+
       </View>
     </ScrollView>
   );

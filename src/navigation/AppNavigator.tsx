@@ -8,6 +8,7 @@ import RegisterScreen from '../screens/auth/RegisterScreen';
 import DashboardScreen from '../screens/dashboard/DashboardScreen';
 import BookingsScreen from '../screens/bookings/BookingsScreen';
 import ProfileScreen from '../screens/profile/ProfileScreen';
+import SwapStations from '../screens/swapStations/swapStations';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -27,6 +28,7 @@ export const AppNavigator: React.FC = () => {
         <Stack.Screen name="Dashboard" component={DashboardScreen} />
         <Stack.Screen name="Bookings" component={BookingsScreen} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="SwapStations" component={SwapStations} />
       </Stack.Navigator>
     </NavigationContainer>
   );
