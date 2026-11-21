@@ -5,6 +5,7 @@ export type RootStackParamList = {
   Dashboard: undefined;
   Bookings: undefined;
   Profile: undefined;
+  SwapStations: undefined;
 };
 
 declare global {
