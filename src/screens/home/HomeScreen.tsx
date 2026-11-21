@@ -40,14 +40,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
   };
 
   return (
-    <ScrollView
-      className="flex-1 bg-[#0A1A12]"
-      showsVerticalScrollIndicator={false}
-      bounces={false}
-      alwaysBounceVertical={false}
-      overScrollMode="never"
-      contentContainerStyle={{ flexGrow: 1 }}
-    >
+    <View className="flex-1 bg-[#0A1A12]">
       <View className="w-full relative overflow-hidden">
         <Image
           source={dashboardBg}
@@ -66,7 +59,6 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
           <View className="flex-row items-center justify-between">
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => onTabChange?.('Profile')}
               className="w-14 h-14 rounded-full border-2 border-white/80 bg-slate-600/70 items-center justify-center overflow-hidden shadow-md"
             >
               <User color="#CBD5E1" size={32} />
@@ -151,14 +143,7 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
         </View>
       </View>
 
-      <View
-        className="flex-1 bg-[#E8EFE7] rounded-t-[36px] shadow-2xl relative -mt-4"
-        style={{
-          paddingHorizontal: wp('5.5%'),
-          paddingTop: hp('3%'),
-          paddingBottom: hp('15%'),
-        }}
-      >
+      <View className="flex-1 bg-[#E8EFE7] rounded-t-[36px] shadow-2xl relative -mt-4 overflow-hidden">
         <Image
           source={cardLeaf}
           resizeMode="contain"
@@ -178,6 +163,19 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
             height: wp('58%'),
           }}
         />
+
+        <ScrollView
+          className="flex-1"
+          showsVerticalScrollIndicator={false}
+          bounces={false}
+          alwaysBounceVertical={false}
+          overScrollMode="never"
+          contentContainerStyle={{
+            paddingHorizontal: wp('5.5%'),
+            paddingTop: hp('3%'),
+            paddingBottom: hp('15%'),
+          }}
+        >
 
         <View className="flex-row items-center justify-between w-full max-w-[480px] self-center mb-3.5 px-0.5">
           <View className="flex-row items-center ml-1">
@@ -373,8 +371,8 @@ export default function HomeScreen({ onTabChange }: HomeScreenProps) {
           </View>
         </View>
 
-
+        </ScrollView>
       </View>
-    </ScrollView>
+    </View>
   );
 }

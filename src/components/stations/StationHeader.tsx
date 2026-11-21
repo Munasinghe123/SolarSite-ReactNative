@@ -36,21 +36,21 @@ export const StationHeader: React.FC<StationHeaderProps> = ({
       className="w-full z-20"
     >
       {/* Row 1: Unified Floating White Pill Header */}
-      <View className="flex-row items-center justify-between bg-white border border-slate-200/90 rounded-3xl p-1.5 shadow-lg shadow-black/15">
+      <View className="flex-row items-center justify-between w-full rounded-3xl bg-[#0C2B1C]/85 border border-emerald-500/30 shadow-xl overflow-hidden  shadow-lg shadow-black/15 p-2">
         {/* Back Button (Styled to match QR Scanner Button) */}
         <TouchableOpacity
           activeOpacity={0.7}
           onPress={onBack}
-          className="w-10 h-10 rounded-2xl bg-[#064E3B] border border-emerald-500/30 items-center justify-center shadow-sm active:bg-emerald-950"
+          className="w-10 h-10 rounded-2xl bg-[#FFC80A] border border-emerald-500/30 items-center justify-center shadow-sm "
         >
-          <ArrowLeft color="#FFC80A" size={20} strokeWidth={2.5} />
+          <ArrowLeft color="#000000ff" size={20} strokeWidth={4} />
         </TouchableOpacity>
 
         {/* Heading Title */}
         <View className="flex-1 px-3 items-center justify-center">
           <Text
             style={{ fontSize: hp('2.05%') }}
-            className="font-extrabold text-[#064E3B] tracking-tight text-center leading-tight"
+            className="font-extrabold text-white tracking-tight text-center leading-tight"
           >
             Select Swap Station
           </Text>
@@ -60,23 +60,23 @@ export const StationHeader: React.FC<StationHeaderProps> = ({
         <TouchableOpacity
           activeOpacity={0.8}
           onPress={onScanPress}
-          className="w-10 h-10 rounded-2xl bg-[#064E3B] border border-emerald-500/30 items-center justify-center shadow-sm relative active:bg-emerald-950"
+          className="w-10 h-10 rounded-2xl bg-[#FFC80A] border border-emerald-500/30 items-center justify-center shadow-sm relative active:bg-emerald-950"
         >
-          <Scan color="#FFC80A" size={20} strokeWidth={2.2} />
+          <Scan color="#060606ff" size={20} strokeWidth={4} />
           <View className="w-1.5 h-1.5 rounded-full bg-[#FFC80A] absolute" />
         </TouchableOpacity>
       </View>
 
       {/* Row 2: Floating Search Bar Card */}
-      <View className="mt-3 flex-row items-center bg-[#064E3B] border border-emerald-500/30 rounded-2xl px-4 py-2.5 shadow-lg shadow-black/20">
-        <Search color="#34D399" size={20} strokeWidth={2.2} />
+      <View className="mt-3 flex-row items-center bg-white border border-emerald-600/60 rounded-full px-4 py-2.5 shadow-md shadow-black/15">
+        <Search color="#064E3B" size={20} strokeWidth={2.2} />
         <TextInput
           value={searchQuery}
           onChangeText={onSearchChange}
           placeholder="Search a location, station, or city..."
-          placeholderTextColor="#A7F3D0"
+          placeholderTextColor="#94A3B8"
           style={{ fontSize: hp('1.75%') }}
-          className="flex-1 ml-3 text-white font-medium p-0"
+          className="flex-1 ml-3 text-slate-800 font-medium p-0"
         />
       </View>
 

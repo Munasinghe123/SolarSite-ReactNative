@@ -167,13 +167,7 @@ export function getLeafletMapHtml(stations: Station[]): string {
           iconAnchor: [19, 19]
         });
 
-        var marker = L.marker([sLat, sLng], { icon: icon }).addTo(map)
-          .bindPopup(
-            '<b style="color:#064E3B; font-size:13px;">' + s.name + '</b><br>' +
-            '<span style="color:#047857; font-size:12px; font-weight:bold;">⚡ ' + s.batteriesReady + ' Batteries Ready</span><br>' +
-            '<span style="color:#64748B; font-size:11px;">' + s.distance + ' • ' + s.location + '</span>',
-            { autoPan: false }
-          );
+        var marker = L.marker([sLat, sLng], { icon: icon }).addTo(map);
 
         marker.on('click', function() {
           sendToRN({ type: 'STATION_SELECTED', stationId: s.id });
@@ -283,7 +277,6 @@ export function getLeafletMapHtml(stations: Station[]): string {
       if (marker) {
         var latlng = marker.getLatLng();
         map.flyTo(latlng, 15.5, { duration: 1.0 });
-        marker.openPopup();
       }
     };
   </script>

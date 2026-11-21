@@ -20,6 +20,7 @@ export interface GradientButtonProps extends PressableProps {
   textClassName?: string;
   textStyle?: StyleProp<TextStyle>;
   icon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   contentAlignment?: 'center' | 'left' | 'right';
   fitWidth?: boolean;
 }
@@ -34,6 +35,7 @@ export function GradientButton({
   textClassName = '',
   textStyle,
   icon,
+  rightIcon,
   contentAlignment = 'center',
   fitWidth = false,
   onPress,
@@ -97,6 +99,7 @@ export function GradientButton({
         >
           {title}
         </Text>
+        {rightIcon && <View className="ml-2.5">{rightIcon}</View>}
       </View>
     </Pressable>
   );

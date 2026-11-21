@@ -11,6 +11,7 @@ import {
   StationBottomSheet,
   COLLAPSED_HEIGHT,
 } from '../../components/stations/StationBottomSheet';
+import { StationDetailModal } from '../../components/stations/StationDetailModal';
 
 export default function SwapStations() {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -119,6 +120,21 @@ export default function SwapStations() {
         selectedStationId={selectedStation?.id}
         onSelectStation={setSelectedStation}
         onBookSwap={handleBookSwap}
+      />
+
+      {/* Layer 3: Tapped Station Details Card Modal */}
+      <StationDetailModal
+        visible={!!selectedStation}
+        station={selectedStation}
+        onClose={() => setSelectedStation(null)}
+        onContinue={(st) => {
+          setSelectedStation(null);
+          handleBookSwap(st);
+        }}
+        onNavigate={(st) => {
+          setSelectedStation(null);
+          Alert.alert('Navigation Started', `Routing to ${st.name}...`);
+        }}
       />
     </View>
   );

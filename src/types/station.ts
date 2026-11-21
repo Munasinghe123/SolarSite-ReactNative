@@ -10,4 +10,5 @@ export interface Station {
   openStatus: string;
   lat: number;
   lng: number;
+  totalCapacity?: string;
 }

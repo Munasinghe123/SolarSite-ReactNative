@@ -128,7 +128,9 @@ export const StationBottomSheet: React.FC<StationBottomSheetProps> = ({
         className="flex-1 px-5 pt-1"
         nestedScrollEnabled={true}
         showsVerticalScrollIndicator={false}
-        bounces={true}
+        bounces={false}
+        alwaysBounceVertical={false}
+        overScrollMode="never"
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ paddingBottom: hp('10%') }}
       >
@@ -147,35 +149,37 @@ export const StationBottomSheet: React.FC<StationBottomSheetProps> = ({
                 key={station.id}
                 activeOpacity={0.9}
                 onPress={() => onSelectStation?.(station)}
-                className={`bg-[#133323] border rounded-3xl p-4 mb-3.5 shadow-md ${
-                  isSelected ? 'border-emerald-400' : 'border-emerald-500/25'
-                }`}
+                className="bg-white rounded-3xl p-4 mb-3.5 shadow-md shadow-black/10"
+                style={{
+                  borderWidth: isSelected ? 2 : 1,
+                  borderColor: isSelected ? '#047857' : '#E2E8F0',
+                }}
               >
                 <View className="flex-row items-start justify-between">
                   <View className="flex-1 pr-2">
-                    <Text className="text-white font-extrabold text-base tracking-tight">
+                    <Text className="text-slate-900 font-extrabold text-base tracking-tight">
                       {station.name}
                     </Text>
                     <View className="flex-row items-center mt-1">
-                      <NavIcon color="#34D399" size={12} />
-                      <Text className="text-slate-300 text-xs font-semibold ml-1">
+                      <NavIcon color="#059669" size={12} />
+                      <Text className="text-slate-500 text-xs font-semibold ml-1">
                         {station.distance} • {station.location}
                       </Text>
                     </View>
                   </View>
 
-                  <View className="bg-emerald-500/15 border border-emerald-400/30 px-2.5 py-1 rounded-full flex-row items-center">
-                    <Zap color="#FFC80A" size={13} fill="#FFC80A" />
-                    <Text className="text-[#FFC80A] font-bold text-xs ml-1">
+                  <View className="bg-amber-50 border border-amber-200/90 px-2.5 py-1 rounded-full flex-row items-center">
+                    <Zap color="#D97706" size={13} fill="#D97706" />
+                    <Text className="text-[#B45309] font-black text-xs ml-1">
                       {station.batteriesReady} Ready
                     </Text>
                   </View>
                 </View>
 
-                <View className="flex-row items-center justify-between mt-3.5 pt-3 border-t border-emerald-500/15">
+                <View className="flex-row items-center justify-between mt-3.5 pt-3 border-t border-slate-100">
                   <View className="flex-row items-center">
-                    <Clock color="#94A3B8" size={13} />
-                    <Text className="text-slate-400 text-xs ml-1 font-medium">
+                    <Clock color="#64748B" size={13} />
+                    <Text className="text-slate-500 text-xs ml-1 font-medium">
                       {station.openStatus}
                     </Text>
                   </View>
@@ -183,7 +187,7 @@ export const StationBottomSheet: React.FC<StationBottomSheetProps> = ({
                   <TouchableOpacity
                     activeOpacity={0.85}
                     onPress={() => onBookSwap?.(station)}
-                    className="bg-[#00B565] px-4 py-2 rounded-full border border-emerald-300/40 active:opacity-80"
+                    className="bg-[#047857] px-4 py-2 rounded-full shadow-sm active:bg-[#064E3B]"
                   >
                     <Text className="text-white font-extrabold text-xs tracking-wide">
                       Book Swap

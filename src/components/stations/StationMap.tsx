@@ -109,7 +109,7 @@ export const StationMap: React.FC<StationMapProps> = ({
     try {
       const data = JSON.parse(event.nativeEvent.data);
       if (data.type === 'LOCATION_FOUND') {
-        console.log('[SolarGrid Map] GPS Lock:', data.lat, data.lng, data.label || '');
+        console.log('[Battery Swapper Map] GPS Lock:', data.lat, data.lng, data.label || '');
       } else if (data.type === 'STATION_SELECTED') {
         const found = stations.find((s) => s.id === data.stationId);
         if (found && onSelectStation) {
